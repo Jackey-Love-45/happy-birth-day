@@ -1,7 +1,7 @@
 /* Bổ sung cá nhân hóa cho thiệp */
 .wish-text .sender { margin-top: 34px; font: italic 20px var(--serif); color: #bca69a; }
 .wish-text .sender strong { font-weight: 500; color: #e6c9a6; }
-.final-photo { background-image: url('assets/photos/photo2.jpg'); }
+.final-photo { background-image: url('assets/photos/photo3.jpg'); }
 .envelope-letter small { display: block; margin-top: 10px; font: italic 14px var(--serif); color: #806264; }
 
 /* Khoảnh khắc ước nguyện */
