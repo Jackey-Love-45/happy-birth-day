@@ -1,0 +1,26 @@
+/* Bổ sung cá nhân hóa cho thiệp */
+.wish-text .sender { margin-top: 34px; font: italic 20px var(--serif); color: #bca69a; }
+.wish-text .sender strong { font-weight: 500; color: #e6c9a6; }
+.final-photo { background-image: url('assets/photos/photo2.jpg'); }
+.envelope-letter small { display: block; margin-top: 10px; font: italic 14px var(--serif); color: #806264; }
+
+/* Khoảnh khắc ước nguyện */
+.wish-magic { position: absolute; inset: 0; z-index: 6; pointer-events: none; display: grid; place-items: center; opacity: 0; transition: opacity .45s ease; overflow: hidden; }
+.wish-magic.active { opacity: 1; }
+.wish-magic p { position: relative; z-index: 2; margin: 0; color: #fff2df; text-align: center; font: 500 clamp(27px,4.2vw,53px)/1 var(--serif); letter-spacing: -.03em; opacity: 0; transform: translateY(18px) scale(.94); }
+.wish-magic p em { display: block; margin-top: 14px; color: #e6c189; font-size: .48em; font-weight: 400; }
+.wish-magic.active p { animation: magicWords 3.4s .5s cubic-bezier(.16,1,.3,1) forwards; }
+.wish-ring { position: absolute; width: 26px; height: 26px; border: 1px solid rgba(248,222,176,.9); border-radius: 50%; box-shadow: 0 0 30px rgba(241,184,110,.4), inset 0 0 25px rgba(255,240,192,.35); opacity: 0; }
+.wish-magic.active .ring-one { animation: wishRing 2.2s .05s cubic-bezier(.1,.8,.2,1) forwards; }
+.wish-magic.active .ring-two { animation: wishRing 2.5s .25s cubic-bezier(.1,.8,.2,1) forwards; }
+.wish-spark { position: absolute; width: var(--s); height: var(--s); left: 50%; top: 54%; border-radius: 50%; box-shadow: 0 0 11px currentColor; animation: wishSpark var(--d) cubic-bezier(.12,.67,.2,1) forwards; }
+.cake-section:has(.wish-magic.active)::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 50% 50%, rgba(237,197,135,.17), transparent 35%); animation: wishFlash 1.1s ease-out; }
+@keyframes wishRing { 0% { opacity: .95; transform: scale(.3); } 100% { opacity: 0; transform: scale(31); } }
+@keyframes wishSpark { from { transform: translate(-50%,-50%) scale(1); opacity: 1; } to { transform: translate(var(--x),var(--y)) scale(.1); opacity: 0; } }
+@keyframes magicWords { 0%,15% { opacity: 0; transform: translateY(18px) scale(.94); } 32%,84% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-12px) scale(1.03); } }
+@keyframes wishFlash { 0% { opacity: 0; } 25% { opacity: 1; } 100% { opacity: 0; } }
+@media (max-width: 720px) { .wish-magic p { padding: 0 26px; font-size: 35px; } }
+
+/* Đặt lời ước vào vùng trống, không che chiếc bánh. */
+.wish-magic { align-items: end; padding-bottom: 6vh; }
+@media (max-width: 720px) { .wish-magic { padding-bottom: 5vh; } }
