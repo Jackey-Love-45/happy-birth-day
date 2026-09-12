@@ -57,7 +57,7 @@
 .envelope-flap { height: 143px; background: linear-gradient(135deg,#f0ba9f,#bd7370 52%,#854953); border-bottom: 1px solid rgba(255,225,179,.5); box-shadow: 0 8px 18px rgba(58,21,27,.23); }
 .envelope-flap::after { content: "Happy Birthday"; position: absolute; left: 50%; top: 28px; transform: translateX(-50%); color: rgba(255,238,209,.82); font: italic 21px var(--serif); letter-spacing: .04em; white-space: nowrap; text-shadow: 0 1px 5px rgba(92,41,41,.55); }
 .envelope-letter { left: 18px; right: 18px; bottom: 13px; height: 214px; padding: 48px 22px 24px; border: 1px solid rgba(189,143,110,.45); background: linear-gradient(135deg,#fff8eb,#f1ded0 52%,#ead1c1); box-shadow: inset 0 0 42px rgba(183,123,89,.12); }
-.envelope-letter::before { content: "MỘT LỜI CHÚC NHỎ DÀNH RIÊNG CHO HÒA"; position:absolute; left: 20px; right:20px; top:17px; padding-bottom:10px; border-bottom:1px solid rgba(147,85,77,.32); color:#a46b5f; font: 500 8px var(--sans); letter-spacing:.16em; }
+.envelope-letter::before { content: "MỘT LỜI CHÚC NHỎ ANH DÀNH RIÊNG CHO EM"; position:absolute; left: 20px; right:20px; top:17px; padding-bottom:10px; border-bottom:1px solid rgba(147,85,77,.32); color:#a46b5f; font: 500 8px var(--sans); letter-spacing:.16em; }
 .envelope-letter::after { content:"✦"; position:absolute; right:17px; bottom:14px; color:#b67857; font-size:16px; }
 .envelope-letter p { font-size: 19px; line-height: 1.25; color:#5a3e40; }
 .envelope-letter span { display:block; font-size:18px; color:#a35358; }
@@ -70,3 +70,68 @@
 @keyframes envelopeLift { to { transform: translateY(-8px); } }
 @keyframes sealFloat { to { transform: translate(-50%,-70%) scale(.75); opacity:0; } }
 @media (max-width:720px) { .envelope { transform: scale(.87); margin:-1px auto 4px; } .envelope.open { transform: translateY(-8px) scale(.87); } .envelope-overlay::after { top:9%; letter-spacing: 2vw; } }
+
+/* Ngôi sao trang trí luôn nằm ở góc dưới, không che phần ký tên. */
+.envelope-letter::after { right: 19px; bottom: 18px; transform: none; }
+.envelope.open .envelope-letter::after { right: 19px; bottom: 18px; transform: none; }
+
+/* Phong bì mới: nắp, thân và con dấu là các lớp riêng để mép luôn khít. */
+.envelope { overflow: visible; border-radius: 2px; background: linear-gradient(145deg,#e5aa92,#9b565d); }
+.envelope-front { inset: 0; z-index: 3; clip-path: none; overflow: hidden; background: linear-gradient(135deg,#d89582 0%,#b76d6c 46%,#925058 100%); border: 1px solid rgba(255,225,187,.66); }
+.envelope-front::before { content: ""; z-index: 2; left: calc(50% - 5px); top: 56%; width: 10px; height: 44%; background: linear-gradient(90deg,#9f6c31,#ffe29d 48%,#a86d2d); box-shadow: 0 0 10px rgba(255,223,157,.42); }
+.envelope-front::after { content: ""; display: block; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; transform: none; border: 0; border-radius: 0; background: linear-gradient(135deg,rgba(255,235,204,.13),transparent 43%,rgba(69,28,38,.12)); box-shadow: none; }
+.envelope-flap { z-index: 6; height: 145px; width: 100%; top: 0; clip-path: polygon(0 0,100% 0,50% 100%); background: linear-gradient(145deg,#f0b9a0,#bf7270 58%,#914e58); border: 0; box-shadow: 0 7px 16px rgba(48,17,24,.31); }
+.envelope-flap::after { top: 26px; }
+.birthday-seal { position: absolute; z-index: 9; left: 50%; top: 56.2%; transform: translate(-50%,-50%); width: 62px; height: 62px; display:grid; place-items:center; border-radius: 50%; color:#fff0c5; background: radial-gradient(circle at 35% 27%,#ffe9ac 0 6%,#d69750 31%,#a45648 56%,#71363c 100%); border: 2px solid #ffe4a8; box-shadow: 0 3px 0 #663037,0 8px 15px rgba(29,8,13,.56),inset 0 0 0 5px rgba(102,45,44,.52),inset 0 0 16px rgba(255,225,158,.42); font: 600 33px var(--serif); text-shadow: 0 1px 2px #6b3838; transition: opacity .36s ease,transform .6s cubic-bezier(.16,1,.3,1); }
+.envelope.open .birthday-seal { opacity: 0; transform: translate(-50%,-84%) scale(.72); }
+.envelope.open .envelope-letter { z-index: 7; height: 250px; transform: translateY(-110px); clip-path: polygon(0 0,100% 0,100% 58%,50% 100%,0 58%); }
+
+/* Lớp hoàn thiện: nắp phủ chồng 1px để không lộ khe; con dấu luôn nổi hoàn toàn phía trước. */
+.envelope .envelope-flap { left: -1px !important; right: -1px !important; top: -1px !important; width: auto !important; height: 151px !important; z-index: 20 !important; border: 0 !important; clip-path: polygon(0 0,100% 0,50% 100%) !important; }
+.envelope .envelope-front { clip-path: none !important; overflow: hidden !important; }
+.envelope .envelope-front::before, .envelope .envelope-front::after { content: "" !important; }
+.envelope .birthday-seal { z-index: 30 !important; top: 57.2% !important; overflow: visible !important; clip-path: none !important; isolation: isolate; }
+.envelope .birthday-seal::before { content: ""; position: absolute; inset: -5px; z-index: -1; border-radius: 50%; background: #6f373d; box-shadow: 0 5px 11px rgba(25,7,11,.52); }
+.envelope.open .envelope-flap { z-index: 5 !important; }
+
+/* Khi mở: nắp lật hẳn ra sau, lá thư luôn ở lớp trên cùng. */
+.envelope.open .envelope-flap { z-index: 1 !important; opacity: .32; transform: translateY(-92px) rotateX(180deg) !important; transform-origin: top center !important; }
+.envelope.open .envelope-front { z-index: 3 !important; }
+.envelope.open .envelope-letter { z-index: 40 !important; }
+
+/* Phong bì "Midnight Champagne" — cấu trúc mới, tối giản và sang trọng. */
+.envelope { width: min(430px,88vw) !important; height: 278px !important; border: 0 !important; border-radius: 4px !important; background: #bb7a78 !important; box-shadow: 0 0 0 1px rgba(247,217,172,.75), 0 0 0 10px rgba(100,59,54,.42), 0 26px 60px rgba(0,0,0,.6), 0 0 70px rgba(208,151,112,.18) !important; }
+.envelope::before { z-index: 60 !important; inset: -18px !important; border: 1px solid rgba(235,192,137,.32) !important; }
+.envelope::after { z-index: 4 !important; inset: 11px !important; border: 1px solid rgba(255,235,202,.38) !important; }
+.envelope .envelope-front { z-index: 5 !important; border: 0 !important; background: linear-gradient(135deg,#d99a89 0%,#bd7473 45%,#914d57 100%) !important; }
+.envelope .envelope-front::before { content: "" !important; z-index: 2 !important; left: 0 !important; top: 0 !important; width: 100% !important; height: 100% !important; background: linear-gradient(35deg,transparent 48%,rgba(255,236,207,.11) 49%,transparent 50%),linear-gradient(145deg,transparent 46%,rgba(76,30,39,.12) 47%,transparent 48%) !important; box-shadow: none !important; }
+.envelope .envelope-front::after { content: "" !important; z-index: 3 !important; inset: 0 !important; width: auto !important; height: auto !important; background: radial-gradient(circle at 50% 20%,rgba(255,241,212,.15),transparent 42%) !important; }
+.envelope .envelope-flap { z-index: 15 !important; left: 0 !important; right: 0 !important; top: 0 !important; width: 100% !important; height: 157px !important; opacity: 1 !important; transform: none !important; clip-path: polygon(0 0,100% 0,50% 100%) !important; background: linear-gradient(145deg,#efb7a0 0%,#c87573 54%,#8e4a55 100%) !important; box-shadow: inset 0 -1px 0 rgba(255,229,190,.48), 0 8px 15px rgba(55,17,25,.28) !important; }
+.envelope .envelope-flap::after { content: "Happy Birthday" !important; top: 30px !important; color: rgba(255,240,214,.9) !important; text-shadow: 0 2px 10px rgba(92,39,44,.44) !important; }
+.envelope .birthday-seal { z-index: 35 !important; top: 56.5% !important; width: 70px !important; height: 70px !important; border: 1px solid #f5d18c !important; background: radial-gradient(circle at 32% 24%,#e3ac68 0 7%,#a85b50 32%,#6a3039 66%,#4a222d 100%) !important; box-shadow: 0 0 0 4px #8c4649, 0 0 0 5px #e9bd76, 0 5px 0 #4b2029, 0 12px 21px rgba(20,4,9,.5), inset 0 0 0 5px rgba(57,19,27,.32) !important; font-size: 0 !important; }
+.envelope .birthday-seal::before { content: "" !important; inset: 8px !important; z-index: 1 !important; background: none !important; border: 1px solid rgba(255,220,147,.63); box-shadow: none !important; }
+.envelope .birthday-seal i { position:relative; z-index:2; color:#ffe6af; font: 600 30px/1 var(--serif); letter-spacing:-.08em; text-shadow:0 1px 2px #612b35; font-style:normal; }
+.envelope.open .envelope-flap { opacity: 0 !important; transform: translateY(-65px) !important; pointer-events:none; }
+.envelope.open .birthday-seal { opacity: 0 !important; transform: translate(-50%,-90%) scale(.72) !important; }
+.envelope.open .envelope-front { z-index: 5 !important; }
+.envelope.open .envelope-letter { z-index: 45 !important; height: 257px !important; transform: translateY(-119px) !important; clip-path: polygon(0 0,100% 0,100% 59%,50% 100%,0 59%) !important; box-shadow: 0 24px 42px rgba(0,0,0,.31), inset 0 0 42px rgba(183,123,89,.1) !important; }
+
+/* Chuyển động mở thư tối ưu: chỉ animate transform/opacity, không lật 3D hay chạy animation chồng nhau. */
+.envelope, .envelope * { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.envelope { animation: none !important; transform: translateZ(0); contain: none; overflow: visible !important; }
+.envelope .envelope-front::after { animation: none !important; }
+.envelope .envelope-flap { transition: transform .52s cubic-bezier(.22,.8,.25,1), opacity .28s ease !important; will-change: transform, opacity; }
+.envelope .birthday-seal { transition: transform .46s cubic-bezier(.22,.8,.25,1), opacity .22s ease !important; will-change: transform, opacity; }
+.envelope .envelope-letter { transition: transform .62s cubic-bezier(.16,1,.3,1), box-shadow .5s ease !important; will-change: transform; }
+.envelope.open .envelope-flap { transform: translate3d(0,-32px,0) scale(.98) !important; opacity: 0 !important; }
+.envelope.open .birthday-seal { transform: translate3d(-50%,-72%,0) scale(.82) !important; opacity: 0 !important; }
+.envelope.open .envelope-letter { transform: translate3d(0,-119px,0) !important; }
+
+/* Nhịp chữ ở mở đầu và kết: số 27 là điểm nhấn nhưng không che phần nội dung. */
+.intro-number { font-size: clamp(145px,22vw,290px) !important; line-height: .72 !important; margin: 26px 0 42px !important; }
+.intro .birthday { display: block; position: relative; z-index: 2; margin: 0 0 27px !important; }
+.intro .primary-button { margin-top: 0 !important; }
+.final-number { font-size: clamp(132px,18vw,245px) !important; line-height: .68 !important; margin: 18px 0 50px !important; }
+.final h2 { position: relative; z-index: 2; margin: 0 0 34px !important; }
+.final-name { position: relative; z-index: 2; }
+@media (max-width:720px) { .intro-number { font-size: 180px !important; margin-bottom: 34px !important; } .final-number { font-size: 150px !important; margin-bottom: 38px !important; } }
